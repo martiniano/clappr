@@ -37,8 +37,9 @@ class HLS extends Playback {
     this.baseUrl = options.baseUrl;
     this.flushLiveURLCache = (options.flushLiveURLCache === undefined) ? true : options.flushLiveURLCache
     this.capLevelToStage = (options.capLevelToStage === undefined) ? false : options.capLevelToStage
-    this.useHardwareVideoDecoder = (options.useHardwareVideoDecoder === undefined) ? true : options.useHardwareVideoDecoder
+    this.useHardwareVideoDecoder = (options.useHardwareVideoDecoder === undefined) ? !Browser.isChrome : options.useHardwareVideoDecoder
     this.maxBufferLength = (options.maxBufferLength === undefined) ? 120 : options.maxBufferLength
+    this.hlsMinimumDvrSize = (options.hlsMinimumDvrSize == undefined) ? 60 : options.hlsMinimumDvrSize
     this.highDefinition = false
     this.autoPlay = options.autoPlay
     this.defaultSettings = {
@@ -102,7 +103,7 @@ class HLS extends Playback {
     var position = Math.min(Math.max(timeMetrics.position, 0), duration)
     var previousDVRStatus = this.dvrEnabled
     var livePlayback = (this.playbackType === 'live')
-    this.dvrEnabled = (livePlayback && duration > 240)
+    this.dvrEnabled = (livePlayback && duration > this.hlsMinimumDvrSize)
 
     if (duration === 100 || livePlayback === undefined) {
       return;
