@@ -1,13 +1,17 @@
 node_modules
 .DS_Store
 .env
+.docusaurus
 coverage
 build/
+dist/
 src/base/jst.js
 *.cache
-dist/
 aws.json
 npm-debug.log
+yarn-error.log
+package-lock.json
+.nx/
 
 # bump
 *.bkp
@@ -19,3 +23,4 @@ npm-debug.log
 
 # PhpStorm
 .idea
+
